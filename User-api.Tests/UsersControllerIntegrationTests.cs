@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Moq;
@@ -22,7 +23,7 @@ namespace UserApi.Tests
             // Criar uma instância da API em memória
             _client = factory.WithWebHostBuilder(builder =>
             {
-                builder.UseContentRoot(AppContext.BaseDirectory);
+                builder.UseSolutionRelativeContentRoot("User-api");
                 // Mock do IUserService para não depender do MongoDB real
                 builder.ConfigureServices(services =>
                 {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6l/ZEM557Ss=",
+  "dgSpecHash": "HmpTGOPkw8M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\VITÓRIA\\Desktop\\User-api\\User-api.Tests\\User-api.Tests.csproj",
+  "projectFilePath": "C:\\User-api\\User-api.Tests\\User-api.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\VITÓRIA\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\VITÓRIA\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
