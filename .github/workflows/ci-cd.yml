@@ -1,0 +1,49 @@
+name: CI/CD User API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci-cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Build Docker image
+        run: docker build -t user-api:latest .
+
+      - name: DockerHub Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker image
+        run: |
+          docker tag user-api:latest vitoriaemanuely/user-api:latest
+          docker push vitoriaemanuely/user-api:latest
+
+      - name: Notify Success
+        if: success()
+        run: echo "CI/CD pipeline completed successfully"
