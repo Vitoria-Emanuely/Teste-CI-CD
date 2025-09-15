@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: user-mongo
+    restart: always
+    ports:
+      - "27017:27017"  
+    environment:
+      MONGO_INITDB_DATABASE: UserDb
+    healthcheck:
+      test: ["CMD-SHELL", "mongosh --eval 'db.adminCommand(\"ping\")' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user-api
+    restart: always
+    ports:
+      - "5000:80" 
+    environment:
+      - MongoDb__ConnectionString=mongodb://mongo:27017
+      - MongoDb__DatabaseName=UserDb
+    depends_on:
+      mongo:
+        condition: service_healthy

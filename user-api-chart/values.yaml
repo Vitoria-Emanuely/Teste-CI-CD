@@ -1,0 +1,54 @@
+replicaCount: 1
+
+image:
+  repository: user-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30081
+
+serviceAccount:
+  create: false
+  name: ""
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+
+httpRoute:
+  enabled: false
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 80
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+env:
+  mongoConnectionString: "mongodb://my-mongo-mongodb:27017/UserDb"
+  mongoDatabaseName: "UserDb"
+
