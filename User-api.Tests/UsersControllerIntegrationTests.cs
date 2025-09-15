@@ -22,6 +22,7 @@ namespace UserApi.Tests
             // Criar uma instância da API em memória
             _client = factory.WithWebHostBuilder(builder =>
             {
+                builder.UseContentRoot(AppContext.BaseDirectory);
                 // Mock do IUserService para não depender do MongoDB real
                 builder.ConfigureServices(services =>
                 {
