@@ -8,8 +8,8 @@ builder.Services.AddSwaggerGen();
 builder.WebHost.UseUrls("http://0.0.0.0:80");
 
 
-var mongoConnection = builder.Configuration["MongoDb:ConnectionString"];
-var mongoDatabase = builder.Configuration["MongoDb:DatabaseName"];
+var mongoConnection = builder.Configuration["MongoDb:ConnectionString"] ?? throw new Exception("Connection string missing");
+var mongoDatabase = builder.Configuration["MongoDb:DatabaseName"] ?? throw new Exception("Database name missing");
 
 // Injetar UserService com dependências
 builder.Services.AddSingleton<IUserService>(sp =>

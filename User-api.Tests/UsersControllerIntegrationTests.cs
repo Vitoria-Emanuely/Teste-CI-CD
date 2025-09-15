@@ -43,7 +43,7 @@ namespace UserApi.Tests
         }
 
         [Fact]
-        public async void GetUsuarios_DeveRetornarLista()
+        public async Task GetUsuarios_DeveRetornarLista()
         {
             var response = await _client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
@@ -53,7 +53,7 @@ namespace UserApi.Tests
         }
 
         [Fact]
-        public async void PostUsuario_DeveCriarUsuario()
+        public async Task PostUsuario_DeveCriarUsuario()
         {
             var user = new User { Name = "João", Email = "joao@email.com" };
             var json = new StringContent(JsonSerializer.Serialize(user), Encoding.UTF8, "application/json");
